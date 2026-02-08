@@ -1,15 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assignment 1</title>
-    <!-- Link to CSS file -->
-    <link rel="stylesheet" href="Style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assignment 1</title>
+
+  <!-- Google Fonts: Press Start 2P + Pixelify Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="Style.css" />
 </head>
 <body>
-    <div class="hint">Pop-ups loading…</div>
-    <!-- Link to JS file -->
-    <script src="Script.js"></script>
+  <!-- Fixed top bar: nav + timer -->
+  <header class="topbar">
+    <nav class="nav">
+      <a href="#home" class="nav-link" data-nav="home">HOME</a>
+      <a href="#video" class="nav-link" data-nav="video">VIDEO</a>
+      <a href="#reflection" class="nav-link" data-nav="reflection">REFLECTION</a>
+      <a href="#gallery" class="nav-link" data-nav="gallery">GALLERY</a>
+      <a href="#about" class="nav-link" data-nav="about">ABOUT</a>
+    </nav>
+
+    <!-- Timer appears only if user enters procrastination loop -->
+    <div id="deadlineTimer" class="deadline-timer hidden" aria-live="polite">
+      <img src="Media/Hourglass.svg" alt="Timer" class="timer-icon timer-svg" />
+      Deadline: <span id="deadlineValue">10:00</span>
+    </div>
+
+  </header>
+
+  <main>
+    <!-- ===================== -->
+    <!-- HOME / LANDING         -->
+    <!-- ===================== -->
+    <section id="home" class="section section-home">
+      <!-- Popup stage (images put by JS) -->
+      <div class="popup-stage" id="popupStage" aria-hidden="true"></div>
+      <div class="home-center">
+        <button id="enterBtn" class="btn btn-primary btn-hidden">ENTER</button>
+      </div>
+        
+    </section>
+
+    <!-- ===================== -->
+    <!-- QUESTION (revealed on ENTER) -->
+    <!-- ===================== -->
+    <section id="question" class="section section-question hidden">
+      <div class="question-wrap">
+        <h2 id="qTitle" class="q-title"></h2>
+        <p id="qSub" class="q-sub"></p>
+
+        <div id="qButtons" class="button-row hidden">
+          <button id="yesBtn" class="btn btn-primary">YES!!!</button>
+          <button id="procrastinateBtn" class="btn btn-secondary">LET ME PROCRASTINATE</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- VIDEO (revealed on YES) -->
+    <!-- ===================== -->
+    <section id="video" class="section section-video hidden">
+      <div class="video-wrap">
+
+        <!-- Replace FILE_ID with your Google Drive file id -->
+        <div class="video-frame"> 
+          <iframe 
+          src="https://drive.google.com/file/d/1soE3d2UCugOtNaM5B5By978lhQDDnJhy/preview" 
+          width="1280" height="720"
+          allow="autoplay"
+          allowfullscreen
+          ></iframe>
+        </div>
+        <div class="scroll-cue" aria-hidden="true">
+          ↓
+        </div>
+      </div>
+    </section>
+
+      <!-- ===================== -->
+      <!-- INTERACTIVE (reflection) -->
+      <!-- ===================== -->
+      <section id="reflection" class="section section-reflection">
+        <div class="reflection-center">
+          <h2 id="rTitle" class="r-title"></h2>
+          <p id="rSub" class="r-sub"></p>
+
+          <div id="rForm" class="reflection-form hidden">
+            <label class="sr-only" for="userResponse">Type your response here</label>
+            <input
+              id="userResponse"
+              class="input input-pixel"
+              type="text"
+              placeholder="Type your response here"
+              maxlength="200"
+            />
+            <button id="submitResponse" class="btn btn-primary">SUBMIT</button>
+
+            <p id="beforePrompt" class="realization hidden">
+              <span class="emph">What if you start before?</span>
+              <button class="scroll-cue scroll-link" data-target="about" aria-label="Scroll to About">↓</button>
+            </p>
+          </div>
+        </div>
+      </section>
+
+    <!-- ===================== -->
+    <!-- GALLERY (revealed after SUBMIT) -->
+    <!-- ===================== -->
+    <section id="gallery" class="section section-gallery hidden">
+      <div class="gallery-slideshow-wrap">
+        <p class="panel-text gallery-heading">Here are some study spots to get you started:</p>
+
+        <div class="slideshow-container">
+
+        <!-- Slide 1 -->
+          <div class="mySlides fade">
+            <div class="numbertext">1 / 8</div>
+            <img src="Media/Study 1.png" alt="The Palms, Outside C2" />
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="mySlides fade">
+            <div class="numbertext">2 / 8</div>
+            <img src="Media/Study 3.png" alt="Mysk Cafe" />
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="mySlides fade">
+            <div class="numbertext">3 / 8</div>
+            <img src="Media/Study 2.png" alt="Blacksmith Coffee Company" />
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="mySlides fade">
+            <div class="numbertext">4 / 8</div>
+            <img src="Media/Study 4.png" alt="Outside the Library Cafe, C2" />
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="mySlides fade">
+            <div class="numbertext">5 / 8</div>
+            <img src= "Media/Study 5.png" alt="NYUAD Library, C2" />
+          </div>
+
+          <!-- Slide 6 -->
+          <div class="mySlides fade">
+            <div class="numbertext">6 / 8</div>
+            <img src= "Media/Study 6.png" alt="Baraha Study Rooms, C2" />
+          </div>
+
+          <!-- Slide 7 -->
+          <div class="mySlides fade">
+            <div class="numbertext">7 / 8</div>
+            <img src= "Media/Study 7.png" alt="Marketplace, C2" />
+          </div>
+
+          <!-- Slide 8 -->
+          <div class="mySlides fade">
+            <div class="numbertext">8 / 8</div>
+            <img src= "Media/Study 8.png" alt="Dorm Floor Lounges, Highline" />
+          </div>
+
+          <a class="prev" id="prevSlide">&lt;</a>
+          <a class="next" id="nextSlide">&gt;</a>
+
+
+      <div class="caption-container">
+        <p id="caption"></p>
+      </div>
+    </div>
+
+    <!-- Arrow to About -->
+    <button class="scroll-cue scroll-link" data-target="about" aria-label="Scroll to About">↓</button>
+  </div>
+</section>
+
+    <!-- ===================== -->
+    <!-- ABOUT (revealed after SUBMIT) -->
+    <!-- ===================== -->
+    <section id="about" class="section section-about hidden">
+      <div class="about-layout">
+        <div class="about-photo">
+          <img src="Media/My photo.png" alt="Your photo" />
+        </div>
+
+        <div class="about-text">
+          <h2 class="about-title">ABOUT</h2>
+          <p class="about-description">
+            Hi, I’m Avani Patri, a freshman at NYU Abu Dhabi, intending to double major in BOS and Interactive Media. I’m passionate about art, dance, reading and most importantly— movies! I’m also very good at convincing myself that 'one more episode' or 'one more chapter' won’t hurt… until it does.
+
+            Like most students, I’ve had my fair share of procrastination. Sometimes it looks like binge-watching instead of studying, sometimes it’s redesigning my notes instead of actually reading them. This website came out of that very habit. I wanted to explore procrastination not as a flaw, but as something almost everyone experiences—and often struggles with silently.
+
+            Through this project, I hope people recognize their own patterns, pause for a moment, and maybe rethink how they use their time. Procrastination is normal, but so is learning how to work around it. And if this page nudges you to start that assignment a little earlier than planned, then it’s already done its job.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="Script.js"></script>
 </body>
 </html>
