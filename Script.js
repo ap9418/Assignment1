@@ -1,113 +1,366 @@
-const NEXT_PAGE_URL = "next.html"; // change this
+/* script.js
+   Single-page progressive reveal:
+   HOME visible initially.
+   QUESTION revealed on ENTER.
+   VIDEO revealed on YES.
+   INTERACTIVE is inside VIDEO (scroll down after "Continue").
+   GALLERY + ABOUT revealed after SUBMIT.
+   Users can scroll back up through revealed content, but cannot scroll
+   to hidden sections because hidden sections take no space.
+*/
 
-const POPUPS = [
-  { title: "OPERATING SYSTEM", img: "popup1.html", button: "OK" },
-  { title: "SYSTEM UPDATE", img: "popup2.png", button: "CANCEL" },
-  { title: "ERROR", img: "popup3.jpg", button: "RETRY" },
-  { title: "CREATING…", img: "popup4.jpg", button: "WAIT" },
-  { title: "PROCRASTINATION.EXE", img: "popup5.webp", button: "ENTER", final: true }
+/* ----------------------------
+   ELEMENT REFERENCES
+---------------------------- */
+const homeSection = document.getElementById("home");
+const questionSection = document.getElementById("question");
+const videoSection = document.getElementById("video");
+const gallerySection = document.getElementById("gallery");
+const aboutSection = document.getElementById("about");
+
+const popupStage = document.getElementById("popupStage");
+
+const enterBtn = document.getElementById("enterBtn");
+const yesBtn = document.getElementById("yesBtn");
+const procrastinateBtn = document.getElementById("procrastinateBtn");
+
+const qTitle = document.getElementById("qTitle");
+const qSub = document.getElementById("qSub");
+const qButtons = document.getElementById("qButtons");
+
+const deadlineTimer = document.getElementById("deadlineTimer");
+const deadlineValue = document.getElementById("deadlineValue");
+
+const reflectionAnchor = document.getElementById("reflection");
+const reflectionSection = document.getElementById("reflection");
+const rTitle = document.getElementById("rTitle");
+const rSub = document.getElementById("rSub");
+const rForm = document.getElementById("rForm");
+
+const submitResponse = document.getElementById("submitResponse");
+const beforePrompt = document.getElementById("beforePrompt");
+const userResponse = document.getElementById("userResponse");
+
+/* ----------------------------
+   STATE
+---------------------------- */
+let loopMode = false;                 // true after user clicks "Let me procrastinate" successfully
+let procrastinateDodgeCount = 0;      // 0 -> 1 -> 2, then click works
+let countdownInterval = null;         // timer interval id
+let remainingSeconds = 10 * 60;       // 10 minutes
+let slideIndex = 1;
+
+/* =========================================================
+   HELPERS: reveal + scroll
+   ========================================================= */
+function revealSection(sectionEl){
+  if (!sectionEl) return;
+  sectionEl.classList.remove("hidden");
+}
+
+function scrollToSection(sectionEl){
+  if (!sectionEl) return;
+  sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* =========================================================
+   POPUP IMAGES ON HOME
+   IMPORTANT:
+   - Put your popup images inside: assets/popups/
+   - Update filenames + positions below
+   ========================================================= */
+const popupPlan = [
+  // Replace with your actual popup image filenames
+  // x/y are % positions; w is width in px
+  { src: "Media/Website (4).png", x: 37 , y: 30, z: 0, w: 350.3},
+  { src: "Media/Website (4).png", x: 84, y: 38, z: 1, w: 389.3 },
+  { src: "Media/Website (4).png", x: 82, y: 36, z: 1, w: 389.3 },
+  { src: "Media/Website (4).png", x: 80, y: 34, z: 1, w: 389.3 },
+  { src: "Media/Website (4).png", x: 78, y: 32, z: 1, w: 389.3 },
+  { src: "Media/Website.png", x: 21, y: 29, z: 3, w: 360 },
+  { src: "Media/Website (3).png", x: 22, y: 70, z: 2, w: 500 },
+  { src: "Media/Website (1).png", x: 52, y: 42, z: 4, w: 600 },
+  { src: "Media/Website (2).png", x: 73, y: 68, z: 2, w: 560 }
 ];
 
-let topZ = 10;
+function playPopups(){
+  popupStage.innerHTML = "";
+  // Hide Enter while popups are appearing (especially if replaying)
+  enterBtn.classList.add("btn-hidden");
+  enterBtn.classList.remove("btn-visible");
 
-function sleep(ms){
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+  popupPlan.forEach((item, index) => {
+    const img = document.createElement("img");
+    img.className = "popup-img";
+    img.src = item.src;
+    img.alt = ""; // decorative
 
-function createWindow(data){
-  const win = document.createElement("div");
-  win.className = "window";
-  win.style.zIndex = ++topZ;
+    img.style.left = `${item.x}%`;
+    img.style.top = `${item.y}%`;
+    img.style.zIndex = item.z;
 
-  win.innerHTML = `
-    <div class="titlebar">
-      <span>${data.title}</span>
-      <div class="controls">
-        <div class="btn">–</div>
-        <div class="btn">□</div>
-        <div class="btn close">×</div>
-      </div>
-    </div>
-    <div class="content">
-      <img class="popup-img" src="${data.img}" />
-      <div class="footer">
-        <span class="muted">${data.final ? "Ready when you are." : "Processing…"}</span>
-        <button class="action">${data.button}</button>
-      </div>
-    </div>
-  `;
+    if (item.w) img.style.width = `${item.w}px`;
 
-  document.body.appendChild(win);
+    popupStage.appendChild(img);
 
-  positionWindow(win);
+    // Stagger each popup appearance
+    setTimeout(() => {
+      img.classList.add("show");
 
-  requestAnimationFrame(() => {
-    win.dataset.state = "show";
-  });
-
-  makeDraggable(win, win.querySelector(".titlebar"));
-
-  win.querySelector(".close").onclick = () => {
-    if (data.final) {
-      win.classList.add("shake");
-    } else {
-      win.remove();
-    }
-  };
-
-  win.querySelector(".action").onclick = () => {
-    if (data.final) {
-      window.location.href = NEXT_PAGE_URL;
-    } else {
-      win.classList.add("shake");
-    }
-  };
-
-  return win;
-}
-
-function positionWindow(win){
-  const padding = 20;
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-
-  const x = Math.random() * (vw - 420 - padding);
-  const y = Math.random() * (vh - 300 - padding);
-
-  win.style.left = `${Math.max(padding, x)}px`;
-  win.style.top = `${Math.max(padding, y)}px`;
-}
-
-function makeDraggable(win, handle){
-  let startX, startY, offsetX, offsetY;
-
-  handle.addEventListener("pointerdown", e => {
-    win.style.zIndex = ++topZ;
-    startX = e.clientX;
-    startY = e.clientY;
-
-    const rect = win.getBoundingClientRect();
-    offsetX = rect.left;
-    offsetY = rect.top;
-
-    handle.setPointerCapture(e.pointerId);
-
-    handle.onpointermove = e => {
-      win.style.left = offsetX + (e.clientX - startX) + "px";
-      win.style.top = offsetY + (e.clientY - startY) + "px";
-    };
-
-    handle.onpointerup = () => {
-      handle.onpointermove = null;
-    };
+      // If this is the last popup, reveal the Enter button
+      if (index === popupPlan.length - 1) {
+        setTimeout(() => {
+          enterBtn.classList.remove("btn-hidden");
+          enterBtn.classList.add("btn-visible");
+        }, 200); // small delay after the last popup
+      }
+    }, 220 * index);
   });
 }
 
-async function run(){
-  for (let i = 0; i < POPUPS.length; i++) {
-    createWindow(POPUPS[i]);
-    await sleep(650);
+/* =========================================================
+   TIMER
+   ========================================================= */
+function formatTime(totalSeconds){
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+function startDeadlineTimer(){
+  if (countdownInterval) return;
+
+  deadlineTimer.classList.remove("hidden");
+  deadlineValue.textContent = formatTime(remainingSeconds);
+
+  countdownInterval = setInterval(() => {
+    remainingSeconds -= 1;
+
+    if (remainingSeconds <= 0){
+      remainingSeconds = 0;
+      deadlineValue.textContent = "00:00";
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+      return;
+    }
+
+    deadlineValue.textContent = formatTime(remainingSeconds);
+  }, 1000);
+}
+
+/* =========================================================
+   PROCRASTINATE BUTTON DODGE
+   - moves twice, then click works
+   ========================================================= */
+function moveButtonSlightly(btn){
+  // Only move sideways and slightly down, never up into the text
+  const dx = Math.floor(Math.random() * 160) - 80;  // -80..80
+  const dy = Math.floor(Math.random() * 30);        // 0..29 (down only)
+  btn.style.transform = `translate(${dx}px, ${dy}px)`;
+}
+
+procrastinateBtn.addEventListener("click", (e) => {
+  // First two attempts: dodge
+  if (procrastinateDodgeCount < 2){
+    e.preventDefault();
+    procrastinateDodgeCount += 1;
+    moveButtonSlightly(procrastinateBtn);
+    return;
   }
+
+  // Third attempt: works
+  loopMode = true;
+  enterBtn.textContent = "READY";
+  startDeadlineTimer();
+
+  // Reset dodge state for next time
+  procrastinateDodgeCount = 0;
+  procrastinateBtn.style.transform = "translate(0, 0)";
+
+  // Return to HOME and replay popups
+  scrollToSection(homeSection);
+  playPopups();
+});
+
+function typeWriter(el, text, speed = 50){
+  return new Promise((resolve) => {
+    el.textContent = "";
+    let i = 0;
+    const timer = setInterval(() => {
+      el.textContent += text.charAt(i);
+      i += 1;
+      if (i >= text.length){
+        clearInterval(timer);
+        resolve();
+      }
+    }, speed);
+  });
+}
+/* =========================================================
+   BUTTON FLOW (progressive reveal)
+   ========================================================= */
+
+enterBtn.addEventListener("click", () => {
+  // READY jumps straight to VIDEO
+  if (enterBtn.textContent.trim().toUpperCase() === "READY") {
+    revealSection(videoSection);
+    revealSection(reflectionSection);
+    scrollToSection(videoSection);
+
+    rForm.classList.add("hidden");
+    beforePrompt.classList.add("hidden");
+    beforePrompt.classList.remove("show");
+
+    typeWriter(rTitle, "Finish this sentence:", 55)
+      .then(() => typeWriter(rSub, "“I’ll start after I….”", 50))
+      .then(() => {
+        rForm.classList.remove("hidden");
+      });
+
+    return;
+  }
+
+  procrastinateDodgeCount = 0;
+  procrastinateBtn.style.transform = "translate(0, 0)";
+
+  revealSection(questionSection);
+  scrollToSection(questionSection);
+
+  qButtons.classList.add("hidden");
+  typeWriter(qTitle, "Before you start…quick question:", 30)
+    .then(() => typeWriter(qSub, "Are you sure you’re ready to focus?", 25))
+    .then(() => {
+      qButtons.classList.remove("hidden");
+    });
+});
+
+yesBtn.addEventListener("click", () => {
+  revealSection(videoSection);
+  revealSection(reflectionSection);
+  scrollToSection(videoSection);
+
+  rForm.classList.add("hidden");
+  beforePrompt.classList.add("hidden");
+  beforePrompt.classList.remove("show");
+
+  typeWriter(rTitle, "Finish this sentence:", 40)
+    .then(() => typeWriter(rSub, "“I’ll start after I….”", 35))
+    .then(() => {
+      rForm.classList.remove("hidden");
+    });
+
+  userResponse.value = "";
+});
+
+submitResponse.addEventListener("click", () => {
+  // Reveal the realization line AFTER submit
+  beforePrompt.classList.remove("hidden");
+  requestAnimationFrame(() => {
+    beforePrompt.classList.add("show");
+  });
+
+  revealSection(gallerySection);
+  revealSection(aboutSection);
+
+  // ensure slideshow is displayed now that gallery exists
+  showSlides(slideIndex);
+});
+
+/* =========================================================
+   NAVIGATION:
+   - If section is hidden, send user to home (so they can't jump ahead).
+   - If section is revealed, scroll to it.
+   ========================================================= */
+function initNav(){
+  document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = link.getAttribute("data-nav");
+
+      if (id === "reflection") {
+      // Only allow if the video section is revealed
+        if (!videoSection.classList.contains("hidden")) {
+        scrollToSection(reflectionAnchor);
+        } else {
+        scrollToSection(homeSection);
+        }
+        return;
+      }
+
+      const section = document.getElementById(id);
+
+      if (section && !section.classList.contains("hidden")){
+        scrollToSection(section);
+      } else {
+        scrollToSection(homeSection);
+      }
+    });
+  });
 }
 
-run();
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
+
+
+function showSlides(n){
+  const slides = document.querySelectorAll(".mySlides");
+  const captionText = document.getElementById("caption");
+
+  if (!slides.length) return;
+
+  if (n > slides.length) slideIndex = 1;
+  if (n < 1) slideIndex = slides.length;
+
+  slides.forEach(s => (s.style.display = "none"));
+
+  const activeSlide = slides[slideIndex - 1];
+  activeSlide.style.display = "block";
+
+  const img = activeSlide.querySelector("img");
+  if (captionText) captionText.textContent = (img && img.alt) ? img.alt : "";
+}
+
+function plusSlides(n){
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n){
+  showSlides(slideIndex = n);
+}
+
+function initSlideshow(){
+  const prev = document.getElementById("prevSlide");
+  const next = document.getElementById("nextSlide");
+
+  if (prev) prev.addEventListener("click", () => plusSlides(-1));
+  if (next) next.addEventListener("click", () => plusSlides(1));
+
+  showSlides(slideIndex);
+}
+
+  // show first slide by default
+  showSlides(slideIndex);
+
+function initScrollLinks(){
+  document.querySelectorAll(".scroll-link").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.getAttribute("data-target");
+      const target = document.getElementById(targetId);
+
+      // If the target is still hidden (locked), do nothing
+      if (!target || target.classList.contains("hidden")) return;
+
+      scrollToSection(target);
+    });
+  });
+}
+
+function init(){
+  playPopups();
+  initNav();
+  initSlideshow();
+  initScrollLinks();
+}
+
+init();
