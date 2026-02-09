@@ -396,7 +396,15 @@ body{
 /* =========================
    VIDEO + REFLECTION
    ========================= */
-.section-video{
+#video{
+  background-image: url("Media/Website copy 1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+   .section-video{
   flex-direction: column;
   gap: 26px;
 }
@@ -488,6 +496,27 @@ body{
 .gallery-heading{
   font-size: 24px;
   margin-bottom: 18px;
+}
+
+#gallery{
+  background-image: url("Media/Website copy 1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#video::before,
+#gallery::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 1, 32, 0.665); /* tint overlay */
+  z-index: 0;
+}
+#video > *,
+#gallery > *{
+  position: relative;
+  z-index: 1;
 }
 
 .slideshow-container{
