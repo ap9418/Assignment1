@@ -72,15 +72,18 @@ function scrollToSection(sectionEl){
 const popupPlan = [
   // Replace with your actual popup image filenames
   // x/y are % positions; w is width in px
-  { src: "Media/Website (4).png", x: 37 , y: 30, z: 0, w: 350.3},
-  { src: "Media/Website (4).png", x: 84, y: 38, z: 1, w: 389.3 },
-  { src: "Media/Website (4).png", x: 82, y: 36, z: 1, w: 389.3 },
-  { src: "Media/Website (4).png", x: 80, y: 34, z: 1, w: 389.3 },
-  { src: "Media/Website (4).png", x: 78, y: 32, z: 1, w: 389.3 },
-  { src: "Media/Website.png", x: 21, y: 29, z: 3, w: 360 },
-  { src: "Media/Website (3).png", x: 22, y: 70, z: 2, w: 500 },
-  { src: "Media/Website (1).png", x: 52, y: 42, z: 4, w: 600 },
-  { src: "Media/Website (2).png", x: 73, y: 68, z: 2, w: 560 }
+  { src: "Media/Website (7).png", x: 37 , y: 36, z: 0, w: 350.3},
+  { src: "Media/Website (4).png", x: 84, y: 41, z: 1, w: 389.3 },
+  { src: "Media/Website (4).png", x: 82, y: 39, z: 1, w: 389.3 },
+  { src: "Media/Website (4).png", x: 80, y: 37, z: 1, w: 389.3 },
+  { src: "Media/Website (4).png", x: 78, y: 35, z: 1, w: 389.3 },
+  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420 },
+  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340 },
+  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340 },
+  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340 },
+  { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340 },
+  { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572 },
+  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520 }
 ];
 
 function playPopups(){
@@ -93,6 +96,9 @@ function playPopups(){
     const img = document.createElement("img");
     img.className = "popup-img";
     img.src = item.src;
+    if (item.src.includes("Media/Website.png")) {
+      img.classList.add("popup-start-working");
+    }
     img.alt = ""; // decorative
 
     img.style.left = `${item.x}%`;
@@ -298,6 +304,31 @@ function initNav(){
   });
 }
 
+function initActiveNav(){
+  const links = Array.from(document.querySelectorAll(".nav-link"));
+  const sections = links
+    .map(a => document.getElementById(a.dataset.nav))
+    .filter(Boolean);
+
+  function setActive(id){
+    links.forEach(a => a.classList.toggle("active", a.dataset.nav === id));
+  }
+
+  const obs = new IntersectionObserver((entries) => {
+    // pick the most visible section
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+    if (visible) setActive(visible.target.id);
+  }, { root: null, threshold: [0.35, 0.55, 0.7] });
+
+  sections.forEach(sec => obs.observe(sec));
+
+  // default on load
+  setActive("home");
+}
+
 /* =========================================================
    INITIAL LOAD
    ========================================================= */
@@ -356,11 +387,25 @@ function initScrollLinks(){
   });
 }
 
+function initBackToTop(){
+  const btn = document.getElementById("backToTop");
+  if(!btn) return;
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+
 function init(){
   playPopups();
   initNav();
+  initActiveNav();
   initSlideshow();
   initScrollLinks();
+  initBackToTop();
 }
 
 init();
