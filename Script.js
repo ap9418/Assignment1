@@ -50,6 +50,62 @@ let countdownInterval = null;         // timer interval id
 let remainingSeconds = 10 * 60;       // 10 minutes
 let slideIndex = 1;
 
+// --- NAV UNLOCK STATE  ---
+let videoUnlockedByNav = false;
+let galleryUnlockedByNav = false;
+let reflectionTypingInProgress = false;
+
+function unlockVideoFlow({ scrollTarget = "video" } = {}) {
+  // Reveal VIDEO + REFLECTION (same sections as YES/READY flow)
+  revealSection(videoSection);
+  revealSection(reflectionSection);
+
+  // Run the reflection typewriter once (so animation happens on first nav click too)
+  if (!videoUnlockedByNav && !reflectionTypingInProgress) {
+    videoUnlockedByNav = true;
+    reflectionTypingInProgress = true;
+
+    rForm.classList.add("hidden");
+    beforePrompt.classList.add("hidden");
+    beforePrompt.classList.remove("show");
+
+    // Only type if it's not already typed
+    const alreadyTyped = (rTitle.textContent || "").trim().length > 0;
+    const runTyping = alreadyTyped
+      ? Promise.resolve()
+      : typeWriter(rTitle, "Finish this sentence:", 40)
+          .then(() => typeWriter(rSub, "“I’ll start after I….”", 35));
+
+    runTyping.then(() => {
+      rForm.classList.remove("hidden");
+      reflectionTypingInProgress = false;
+
+      if (scrollTarget === "reflection") scrollToSection(reflectionSection);
+      else scrollToSection(videoSection);
+    });
+
+    return; // prevent immediate scroll; we scroll after typing starts/finishes
+  }
+
+  // If already unlocked/typed, just scroll immediately
+  if (scrollTarget === "reflection") scrollToSection(reflectionSection);
+  else scrollToSection(videoSection);
+}
+
+function unlockGalleryFlow({ scrollTarget = "gallery" } = {}) {
+  revealSection(gallerySection);
+  revealSection(aboutSection);
+
+  if (!galleryUnlockedByNav) {
+    galleryUnlockedByNav = true;
+    // make sure slideshow is ready once gallery is visible
+    showSlides(slideIndex);
+  }
+
+  if (scrollTarget === "about") scrollToSection(aboutSection);
+  else scrollToSection(gallerySection);
+}
+
 /* =========================================================
    HELPERS: reveal + scroll
    ========================================================= */
@@ -283,23 +339,34 @@ function initNav(){
       e.preventDefault();
       const id = link.getAttribute("data-nav");
 
-      if (id === "reflection") {
-      // Only allow if the video section is revealed
-        if (!videoSection.classList.contains("hidden")) {
-        scrollToSection(reflectionAnchor);
-        } else {
+      if (id === "home") {
         scrollToSection(homeSection);
-        }
         return;
       }
 
-      const section = document.getElementById(id);
-
-      if (section && !section.classList.contains("hidden")){
-        scrollToSection(section);
-      } else {
-        scrollToSection(homeSection);
+      if (id === "video") {
+        unlockVideoFlow({ scrollTarget: "video" });
+        return;
       }
+
+      if (id === "reflection") {
+        unlockVideoFlow({ scrollTarget: "reflection" });
+        return;
+      }
+
+      if (id === "gallery") {
+        unlockGalleryFlow({ scrollTarget: "gallery" });
+        return;
+      }
+
+      if (id === "about") {
+        unlockGalleryFlow({ scrollTarget: "about" });
+        return;
+      }
+
+      // fallback (shouldn't happen)
+      const section = document.getElementById(id);
+      if (section) scrollToSection(section);
     });
   });
 }
