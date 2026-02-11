@@ -798,6 +798,11 @@ body{
   .nav{
     gap: 10px;
   }
+  
+  @media (max-width: 700px){
+  #enterBtn{ margin-top: 24px; }
+  .home-center{ top: 62%; }
+}
 
   /* If timer appears, don't let it overlap everything */
   .deadline-timer{
@@ -842,5 +847,43 @@ body{
 
   .thumb-row img{
     height: 56px;
+  }
+}
+
+/* --- iOS/phone background fix (prevents "white page" issues) --- */
+@media (max-width: 700px){
+  html, body{
+    background-attachment: scroll; /* iOS Safari hates fixed backgrounds */
+    background-position: center;
+    background-size: cover;
+  }
+
+  /* Ensure every section stays transparent so the background shows through */
+  .section{
+    background: transparent;
+  }
+}
+/* --- ABOUT responsive layout: photo first, centered, text after --- */
+@media (max-width: 860px){
+  .about-layout{
+    grid-template-columns: 1fr;   /* already exists, but we improve the layout */
+    justify-items: center;
+    gap: 18px;
+  }
+
+  .about-photo{
+    width: min(360px, 86vw);
+    margin: 18px auto 0;
+    justify-self: center;
+  }
+
+  .about-text{
+    width: min(650px, 92vw);
+    text-align: center;
+  }
+
+  .about-description{
+    max-width: none;
+    text-align: center; /* you asked for center aligned text */
   }
 }
