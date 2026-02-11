@@ -18,6 +18,8 @@ const videoSection = document.getElementById("video");
 const gallerySection = document.getElementById("gallery");
 const aboutSection = document.getElementById("about");
 
+const DESKTOP_BASELINE = 1200;
+
 const popupStage = document.getElementById("popupStage");
 
 const enterBtn = document.getElementById("enterBtn");
@@ -157,11 +159,32 @@ function playPopups(){
     }
     img.alt = ""; // decorative
 
-    img.style.left = `${item.x}%`;
-    img.style.top = `${item.y}%`;
     img.style.zIndex = item.z;
 
-    if (item.w) img.style.width = `${item.w}px`;
+        // --- RESPONSIVE POPUPS (ONLY on small screens) ---
+    const vw = window.innerWidth || 390;
+
+    if (vw <= 700) {
+      // Phone: scale down and clamp within view
+      const scale = vw / 1200; // < 1 on phones
+
+      if (item.w) {
+        const scaled = item.w * scale;
+        const maxAllowed = vw * 0.92;    // <= 92% viewport
+        const minAllowed = vw * 0.35;
+        const finalW = Math.max(minAllowed, Math.min(scaled, maxAllowed));
+        img.style.width = `${finalW}px`;
+      }
+
+      const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+      img.style.left = `${clamp(item.x, 8, 92)}%`;
+      img.style.top  = `${clamp(item.y, 12, 88)}%`;
+    } else {
+      // Desktop/tablet: EXACT original look (no scaling, no clamping)
+      img.style.left = `${item.x}%`;
+      img.style.top  = `${item.y}%`;
+      if (item.w) img.style.width = `${item.w}px`;
+    }
 
     popupStage.appendChild(img);
 
