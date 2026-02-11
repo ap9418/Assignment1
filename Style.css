@@ -674,11 +674,16 @@ body{
   box-shadow: 10px 10px 0 var(--shadow);
   overflow: hidden;
   background: rgba(0,0,0,0.12);
-  max-width: 360px; 
-  align-self: flex-start; 
-  margin-top: 30px;
-  margin-left: 250px;
+
+  width: min(360px, 80vw);
+  max-width: 360px;
+
+  /* responsive positioning */
+  margin: 30px auto 0;
+  justify-self: center;
+  align-self: start;
 }
+
 
 .about-photo img{
   width: 100%;
@@ -735,4 +740,107 @@ body{
   transform: translateY(-2px);
   background: #ffffff;
   animation: none;
+}
+
+/* =========================================
+   RESPONSIVE (phones / tablets / desktops)
+   ========================================= */
+
+/* Make text scale smoothly instead of fixed sizes */
+.nav-link{
+  font-size: clamp(12px, 1.6vw, 18px);
+}
+
+.q-title{ font-size: clamp(22px, 5.2vw, 37px); }
+.q-sub{ font-size: clamp(18px, 4.8vw, 35px); }
+
+.r-title{ font-size: clamp(20px, 4.8vw, 35px); }
+.r-sub{ font-size: clamp(18px, 4.2vw, 30px); }
+
+.panel-text{ font-size: clamp(16px, 2.2vw, 22px); }
+.gallery-heading{ font-size: clamp(16px, 2.4vw, 24px); }
+.about-title{ font-size: clamp(18px, 2.6vw, 26px); }
+.about-description{ font-size: clamp(16px, 2.2vw, 20px); }
+.realization,
+.realization .emph{ font-size: clamp(16px, 4vw, 30px); }
+
+/* Top bar wraps nicely on small widths */
+.topbar{
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* On tablets */
+@media (max-width: 1024px){
+  .section{
+    padding: 110px 16px 56px; /* a bit more top padding if topbar wraps */
+  }
+
+  .deadline-timer{
+    font-size: 14px;
+    padding: 8px 10px;
+    top: 12px;
+    right: 12px;
+  }
+}
+
+/* On phones */
+@media (max-width: 700px){
+  /* Background-attachment: fixed often looks buggy on phones */
+  html, body{
+    background-attachment: scroll;
+  }
+
+  .topbar{
+    padding: 10px 12px;
+  }
+
+  .nav{
+    gap: 10px;
+  }
+
+  /* If timer appears, don't let it overlap everything */
+  .deadline-timer{
+    position: static;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.55);
+  }
+
+  .section{
+    padding: 130px 14px 52px; /* more space for wrapped nav */
+  }
+
+  /* Tighten some UI sizing */
+  .btn{
+    padding: 11px 12px;
+    font-size: 11px;
+  }
+
+  .scroll-cue{
+    width: 40px;
+    height: 40px;
+  }
+
+  .numbertext{
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+
+  #caption{
+    font-size: 14px;
+  }
+
+  .thumb-row{
+    grid-template-columns: repeat(2, 1fr); /* 4 across is too tight on phones */
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px){
+  .section{
+    padding: 140px 12px 48px;
+  }
+
+  .thumb-row img{
+    height: 56px;
+  }
 }
