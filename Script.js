@@ -76,7 +76,7 @@ function unlockVideoFlow({ scrollTarget = "video" } = {}) {
     const runTyping = alreadyTyped
       ? Promise.resolve()
       : typeWriter(rTitle, "Finish this sentence:", 40)
-          .then(() => typeWriter(rSub, "“I’ll start after I….”", 35));
+        .then(() => typeWriter(rSub, "“I’ll start after I….”", 35));
 
     runTyping.then(() => {
       rForm.classList.remove("hidden");
@@ -111,12 +111,12 @@ function unlockGalleryFlow({ scrollTarget = "gallery" } = {}) {
 /* =========================================================
    HELPERS: reveal + scroll
    ========================================================= */
-function revealSection(sectionEl){
+function revealSection(sectionEl) {
   if (!sectionEl) return;
   sectionEl.classList.remove("hidden");
 }
 
-function scrollToSection(sectionEl){
+function scrollToSection(sectionEl) {
   if (!sectionEl) return;
   sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
 }
@@ -130,7 +130,7 @@ function scrollToSection(sectionEl){
 const popupPlan = [
   // Replace with your actual popup image filenames
   // x/y are % positions; w is width in px
-  { src: "Media/Website (7).png", x: 37 , y: 36, z: 0, w: 350.3},
+  { src: "Media/Website (7).png", x: 37, y: 36, z: 0, w: 350.3 },
   { src: "Media/Website (4).png", x: 84, y: 41, z: 1, w: 389.3 },
   { src: "Media/Website (4).png", x: 82, y: 39, z: 1, w: 389.3 },
   { src: "Media/Website (4).png", x: 80, y: 37, z: 1, w: 389.3 },
@@ -144,7 +144,7 @@ const popupPlan = [
   { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520 }
 ];
 
-function playPopups(){
+function playPopups() {
   popupStage.innerHTML = "";
   // Hide Enter while popups are appearing (especially if replaying)
   enterBtn.classList.add("btn-hidden");
@@ -161,7 +161,7 @@ function playPopups(){
 
     img.style.zIndex = item.z;
 
-        // --- RESPONSIVE POPUPS (ONLY on small screens) ---
+    // --- RESPONSIVE POPUPS (ONLY on small screens) ---
     const vw = window.innerWidth || 390;
 
     if (vw <= 700) {
@@ -178,12 +178,23 @@ function playPopups(){
 
       const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
       img.style.left = `${clamp(item.x, 8, 92)}%`;
-      img.style.top  = `${clamp(item.y, 12, 88)}%`;
+      img.style.top = `${clamp(item.y, 12, 88)}%`;
     } else {
       // Desktop/tablet: EXACT original look (no scaling, no clamping)
+      // BUT: scale width if between 700 and 1200 to keep proportions
       img.style.left = `${item.x}%`;
-      img.style.top  = `${item.y}%`;
-      if (item.w) img.style.width = `${item.w}px`;
+      img.style.top = `${item.y}%`;
+
+      if (item.w) {
+        const baseline = 1200;
+        if (vw < baseline) {
+          // Scale proportionally for tablets/small laptops
+          const scale = vw / baseline;
+          img.style.width = `${item.w * scale}px`;
+        } else {
+          img.style.width = `${item.w}px`;
+        }
+      }
     }
 
     popupStage.appendChild(img);
@@ -206,13 +217,13 @@ function playPopups(){
 /* =========================================================
    TIMER
    ========================================================= */
-function formatTime(totalSeconds){
+function formatTime(totalSeconds) {
   const m = Math.floor(totalSeconds / 60);
   const s = totalSeconds % 60;
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
-function startDeadlineTimer(){
+function startDeadlineTimer() {
   if (countdownInterval) return;
 
   deadlineTimer.classList.remove("hidden");
@@ -221,7 +232,7 @@ function startDeadlineTimer(){
   countdownInterval = setInterval(() => {
     remainingSeconds -= 1;
 
-    if (remainingSeconds <= 0){
+    if (remainingSeconds <= 0) {
       remainingSeconds = 0;
       deadlineValue.textContent = "00:00";
       clearInterval(countdownInterval);
@@ -237,7 +248,7 @@ function startDeadlineTimer(){
    PROCRASTINATE BUTTON DODGE
    - moves twice, then click works
    ========================================================= */
-function moveButtonSlightly(btn){
+function moveButtonSlightly(btn) {
   // Only move sideways and slightly down, never up into the text
   const dx = Math.floor(Math.random() * 160) - 80;  // -80..80
   const dy = Math.floor(Math.random() * 30);        // 0..29 (down only)
@@ -246,7 +257,7 @@ function moveButtonSlightly(btn){
 
 procrastinateBtn.addEventListener("click", (e) => {
   // First two attempts: dodge
-  if (procrastinateDodgeCount < 2){
+  if (procrastinateDodgeCount < 2) {
     e.preventDefault();
     procrastinateDodgeCount += 1;
     moveButtonSlightly(procrastinateBtn);
@@ -267,14 +278,14 @@ procrastinateBtn.addEventListener("click", (e) => {
   playPopups();
 });
 
-function typeWriter(el, text, speed = 50){
+function typeWriter(el, text, speed = 50) {
   return new Promise((resolve) => {
     el.textContent = "";
     let i = 0;
     const timer = setInterval(() => {
       el.textContent += text.charAt(i);
       i += 1;
-      if (i >= text.length){
+      if (i >= text.length) {
         clearInterval(timer);
         resolve();
       }
@@ -356,7 +367,7 @@ submitResponse.addEventListener("click", () => {
    - If section is hidden, send user to home (so they can't jump ahead).
    - If section is revealed, scroll to it.
    ========================================================= */
-function initNav(){
+function initNav() {
   document.querySelectorAll(".nav-link").forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -394,13 +405,13 @@ function initNav(){
   });
 }
 
-function initActiveNav(){
+function initActiveNav() {
   const links = Array.from(document.querySelectorAll(".nav-link"));
   const sections = links
     .map(a => document.getElementById(a.dataset.nav))
     .filter(Boolean);
 
-  function setActive(id){
+  function setActive(id) {
     links.forEach(a => a.classList.toggle("active", a.dataset.nav === id));
   }
 
@@ -408,7 +419,7 @@ function initActiveNav(){
     // pick the most visible section
     const visible = entries
       .filter(e => e.isIntersecting)
-      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
     if (visible) setActive(visible.target.id);
   }, { root: null, threshold: [0.35, 0.55, 0.7] });
@@ -424,7 +435,7 @@ function initActiveNav(){
    ========================================================= */
 
 
-function showSlides(n){
+function showSlides(n) {
   const slides = document.querySelectorAll(".mySlides");
   const captionText = document.getElementById("caption");
 
@@ -442,15 +453,15 @@ function showSlides(n){
   if (captionText) captionText.textContent = (img && img.alt) ? img.alt : "";
 }
 
-function plusSlides(n){
+function plusSlides(n) {
   showSlides(slideIndex += n);
 }
 
-function currentSlide(n){
+function currentSlide(n) {
   showSlides(slideIndex = n);
 }
 
-function initSlideshow(){
+function initSlideshow() {
   const prev = document.getElementById("prevSlide");
   const next = document.getElementById("nextSlide");
 
@@ -460,10 +471,10 @@ function initSlideshow(){
   showSlides(slideIndex);
 }
 
-  // show first slide by default
-  showSlides(slideIndex);
+// show first slide by default
+showSlides(slideIndex);
 
-function initScrollLinks(){
+function initScrollLinks() {
   document.querySelectorAll(".scroll-link").forEach(btn => {
     btn.addEventListener("click", () => {
       const targetId = btn.getAttribute("data-target");
@@ -477,9 +488,9 @@ function initScrollLinks(){
   });
 }
 
-function initBackToTop(){
+function initBackToTop() {
   const btn = document.getElementById("backToTop");
-  if(!btn) return;
+  if (!btn) return;
 
   btn.addEventListener("click", () => {
     window.scrollTo({
@@ -489,7 +500,7 @@ function initBackToTop(){
   });
 }
 
-function init(){
+function init() {
   playPopups();
   initNav();
   initActiveNav();
