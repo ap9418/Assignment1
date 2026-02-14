@@ -128,20 +128,33 @@ function scrollToSection(sectionEl) {
    - Update filenames + positions below
    ========================================================= */
 const popupPlan = [
-  // Replace with your actual popup image filenames
-  // x/y are % positions; w is width in px
-  { src: "Media/Website (7).png", x: 37, y: 36, z: 0, w: 350.3 },
-  { src: "Media/Website (4).png", x: 84, y: 41, z: 1, w: 389.3 },
-  { src: "Media/Website (4).png", x: 82, y: 39, z: 1, w: 389.3 },
-  { src: "Media/Website (4).png", x: 80, y: 37, z: 1, w: 389.3 },
-  { src: "Media/Website (4).png", x: 78, y: 35, z: 1, w: 389.3 },
-  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420 },
-  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340 },
-  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340 },
-  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340 },
-  { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340 },
-  { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572 },
-  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520 }
+  // Mobile layout: Stack vertically to form "Pro-Crast-Ination" + others
+  // Inferred order: 
+  // 1. Pro (Top)
+  // 2. Crast (Middle)
+  // 3. Ination (Bottom)
+  // Others scattered around contextually
+
+  // NOTE: Adjusting indices based on user screenshot/request. 
+  // Assuming the LAST few are the main text ones based on "Website.png" (clean names).
+
+  { src: "Media/Website (7).png", x: 37, y: 36, z: 0, w: 350.3, mobile: { x: 50, y: 15, w: 280 } }, // Top decoration
+  { src: "Media/Website (4).png", x: 84, y: 41, z: 1, w: 389.3, mobile: { x: 85, y: 25, w: 180 } }, // Right decorations
+  { src: "Media/Website (4).png", x: 82, y: 39, z: 1, w: 389.3, mobile: { x: 82, y: 23, w: 180 } },
+  { src: "Media/Website (4).png", x: 80, y: 37, z: 1, w: 389.3, mobile: { x: 79, y: 21, w: 180 } },
+  { src: "Media/Website (4).png", x: 78, y: 35, z: 1, w: 389.3, mobile: { x: 76, y: 19, w: 180 } },
+
+  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420, mobile: { x: 15, y: 80, w: 200 } }, // Moved to bottom-left
+
+  // PRO - CRAST - INATION Cascade
+  // Spaced out vertically to read Top -> Bottom
+  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340, mobile: { x: 25, y: 35, w: 250 } },  // PRO (Top-ish)
+  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340, mobile: { x: 50, y: 48, w: 260 } },  // CRAST (Middle)
+  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340, mobile: { x: 75, y: 60, w: 270 } },  // INATION (Lower)
+  { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340, mobile: { x: 10, y: 55, w: 200 } },  // Extra stack item (Side)
+
+  { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572, mobile: { x: 50, y: 50, z: -1, w: 300 } }, // Background-ish center
+  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520, mobile: { x: 80, y: 85, w: 250 } }  // Bottom right
 ];
 
 function playPopups() {
@@ -165,20 +178,26 @@ function playPopups() {
     const vw = window.innerWidth || 390;
 
     if (vw <= 700) {
-      // Phone: scale down and clamp within view
-      const scale = vw / 1200; // < 1 on phones
-
-      if (item.w) {
-        const scaled = item.w * scale;
-        const maxAllowed = vw * 0.92;    // <= 92% viewport
-        const minAllowed = vw * 0.35;
-        const finalW = Math.max(minAllowed, Math.min(scaled, maxAllowed));
-        img.style.width = `${finalW}px`;
+      // Mobile Layout
+      // Check if we have specific mobile coords, else fallback to auto-scaling
+      if (item.mobile) {
+        img.style.left = `${item.mobile.x}%`;
+        img.style.top = `${item.mobile.y}%`;
+        img.style.width = `${item.mobile.w}px`;
+      } else {
+        // Fallback scaling for items without explicit mobile config
+        const scale = vw / 1200;
+        if (item.w) {
+          const scaled = item.w * scale;
+          const maxAllowed = vw * 0.92;
+          const minAllowed = vw * 0.35;
+          const finalW = Math.max(minAllowed, Math.min(scaled, maxAllowed));
+          img.style.width = `${finalW}px`;
+        }
+        const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+        img.style.left = `${clamp(item.x, 8, 92)}%`;
+        img.style.top = `${clamp(item.y, 12, 88)}%`;
       }
-
-      const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
-      img.style.left = `${clamp(item.x, 8, 92)}%`;
-      img.style.top = `${clamp(item.y, 12, 88)}%`;
     } else {
       // Desktop/tablet: EXACT original look (no scaling, no clamping)
       // BUT: scale width if between 700 and 1200 to keep proportions
