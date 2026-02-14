@@ -3,15 +3,19 @@
 /* =========================
    THEME VARIABLES
    ========================= */
-:root{
-  --ink: #F4F2F3;     /* off-white text */
-  --shadow: rgba(0,0,0,0.35);
+:root {
+  --ink: #F4F2F3;
+  /* off-white text */
+  --shadow: rgba(0, 0, 0, 0.35);
 }
 
 /* Reset / base */
-*{ box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body{
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -25,14 +29,14 @@ html, body{
   color: var(--ink);
 }
 
-body{
+body {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   overflow-x: hidden;
 }
 
 
 /* Accessibility helper */
-.sr-only{
+.sr-only {
   position: absolute;
   left: -9999px;
   width: 1px;
@@ -40,16 +44,18 @@ body{
   overflow: hidden;
 }
 
-.hidden{ display: none !important; }
+.hidden {
+  display: none !important;
+}
 
-.mono{
+.mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* =========================
    TOP BAR / NAV + TIMER
    ========================= */
-.topbar{
+.topbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -59,17 +65,17 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0,0,0,0.15);
+  background: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(6px);
 }
 
-.nav{
+.nav {
   display: flex;
   gap: 18px;
   flex-wrap: wrap;
 }
 
-.nav-link{
+.nav-link {
   font-family: "Press Start 2P", monospace;
   font-size: 18px;
   color: var(--ink);
@@ -80,25 +86,32 @@ body{
   transition: background 200ms ease, color 200ms ease;
 }
 
-.nav-link:hover{
+.nav-link:hover {
   opacity: 1;
   background: #f4f2f3;
   color: #8b0015;
 }
-.nav-link.active{
-  background: #f4f2f3;     /* off-white */
-  color: #8b0015;          /* your red */
+
+.nav-link.active {
+  background: #f4f2f3;
+  /* off-white */
+  color: #8b0015;
+  /* your red */
   opacity: 1;
   text-decoration: none;
 }
 
-.deadline-timer{
+.deadline-timer {
   font-family: "Press Start 2P", monospace;
-  font-size: 18px;                 /* bigger */
-  font-weight: 800;                /* bolder */
+  font-size: 18px;
+  /* bigger */
+  font-weight: 800;
+  /* bolder */
   padding: 10px 12px;
-  border: 3px solid #f80d0d;       /* bright red */
-  color: #f92020;                  /* bright red text */
+  border: 3px solid #f80d0d;
+  /* bright red */
+  color: #f92020;
+  /* bright red text */
   background: rgb(0, 0, 0);
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.667);
   position: fixed;
@@ -106,28 +119,29 @@ body{
   right: 16px;
 }
 
-.timer-icon{
+.timer-icon {
   width: 28px;
   height: 28px;
   margin-right: 2px;
   vertical-align: middle;
 }
 
-.timer-svg{
+.timer-svg {
   display: inline-block;
 }
 
 
-#deadlineValue{
+#deadlineValue {
   font-weight: 900;
 }
 
 /* =========================
    SECTIONS
    ========================= */
-.section{
+.section {
   min-height: 100vh;
-  padding: 92px 18px 60px; /* account for fixed topbar */
+  padding: 92px 18px 60px;
+  /* account for fixed topbar */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,32 +149,35 @@ body{
 }
 
 /* ===== Reflection (full page, no box) ===== */
-.section-reflection{
+.section-reflection {
   align-items: flex-start;
 }
 
-.reflection-center{
+.reflection-center {
   margin-top: 120px;
   width: min(900px, 96vw);
   text-align: center;
 }
 
-.r-title{
+.r-title {
   font-family: "Press Start 2P", monospace;
-  font-size: 35px;        /* requested */
+  font-size: 35px;
+  /* requested */
   line-height: 1.6;
   margin: 0 0 18px;
-  min-height: 56px;       /* prevents jump during typing */
+  min-height: 56px;
+  /* prevents jump during typing */
 }
 
-.r-sub{
-  font-size: 30px;        /* 5 points less */
+.r-sub {
+  font-size: 30px;
+  /* 5 points less */
   line-height: 1.4;
   margin: 0 0 26px;
   min-height: 40px;
 }
 
-.reflection-form{
+.reflection-form {
   display: grid;
   gap: 14px;
   justify-items: center;
@@ -170,62 +187,69 @@ body{
    QUICK QUESTION PAGE
    ========================= */
 
-.section-question .panel-title{
-  font-size: 25px;   
+.section-question .panel-title {
+  font-size: 25px;
   line-height: 1.7;
 }
 
-.section-question .panel-text{
-  font-size: 25px;   /* was ~22px */
+.section-question .panel-text {
+  font-size: 25px;
+  /* was ~22px */
   line-height: 1.4;
 }
 
-.section-question .btn{
-  font-size: 12px;  
+.section-question .btn {
+  font-size: 12px;
   padding: 12px 15px;
 }
-.section-question{
+
+.section-question {
   align-items: center;
 }
 
-.section-question .pixel-panel{
+.section-question .pixel-panel {
   max-width: 1500px;
 }
 
 /* ===== Quick Question (no box) ===== */
-.section-question{
+.section-question {
   align-items: flex-start;
 }
 
-.question-wrap{
-  margin-top: 120px;         /* pushes question higher on the page */
+.question-wrap {
+  margin-top: 120px;
+  /* pushes question higher on the page */
   max-width: 1500px;
   width: 100%;
   text-align: center;
 }
 
 /* Typewriter text */
-.q-title{
+.q-title {
   font-family: "Press Start 2P", monospace;
-  font-size: 37px;           /* your main size */
+  font-size: 37px;
+  /* your main size */
   line-height: 1.6;
   margin: 0 0 12px;
-  min-height: 40px;          /* prevents layout jump while typing */
+  min-height: 40px;
+  /* prevents layout jump while typing */
 }
 
-.q-sub{
-  font-size: 35px;           /* 5 points less than q-title */
+.q-sub {
+  font-size: 35px;
+  /* 5 points less than q-title */
   line-height: 1.4;
   margin: 0 0 26px;
   min-height: 34px;
 }
 
 /* Buttons appear after typing */
-#qButtons{
+#qButtons {
   justify-content: center;
 }
+
 /* Keeps the dodge button constrained within button area */
-#qButtons{
+#qButtons {
   position: relative;
   min-height: 80px;
 }
@@ -233,38 +257,40 @@ body{
 /* =========================
    HOME: POPUP STAGE
    ========================= */
-.section-home{
+.section-home {
   overflow: hidden;
 }
 
-.popup-stage{
+.popup-stage {
   position: absolute;
   inset: 0;
-  pointer-events: none; /* images are decorative */
+  pointer-events: none;
+  /* images are decorative */
 }
 
-.popup-img{
+.popup-img {
   position: absolute;
   width: min(320px, 60vw);
   max-width: 1000px;
   transform: translate(-50%, -50%) translateY(18px) scale(0.98);
   opacity: 0;
-  filter: drop-shadow(10px 12px 0 rgba(0,0,0,0.35));
+  filter: drop-shadow(10px 12px 0 rgba(0, 0, 0, 0.35));
   transition: opacity 220ms ease, transform 220ms ease;
 }
+
 /* flip the shadow direction */
-.popup-start-working{
+.popup-start-working {
   filter: drop-shadow(-8px 12px 0 rgba(0, 0, 0, 0.569));
-  border:#1b0105;
+  border: #1b0105;
 }
 
 
-.popup-img.show{
+.popup-img.show {
   opacity: 1;
   transform: translate(-50%, -50%) translateY(0) scale(1);
 }
 
-.home-center{
+.home-center {
   position: absolute;
   left: 50%;
   top: 57%;
@@ -275,16 +301,19 @@ body{
   padding: 12px;
 }
 
-.title{
+.title {
   font-family: "Press Start 2P", monospace;
   font-size: clamp(22px, 4vw, 44px);
   letter-spacing: 2px;
   margin: 0 0 22px;
-  text-shadow: 6px 6px 0 rgba(0,0,0,0.25);
+  text-shadow: 6px 6px 0 rgba(0, 0, 0, 0.25);
 }
-.title{ display: none; }
 
-.hint{
+.title {
+  display: none;
+}
+
+.hint {
   margin-top: 14px;
   opacity: 0.85;
   font-size: 18px;
@@ -293,8 +322,8 @@ body{
 /* =========================
    PIXEL PANEL
    ========================= */
-.pixel-panel{
-  background: rgba(0,0,0,0.18);
+.pixel-panel {
+  background: rgba(0, 0, 0, 0.18);
   border: 3px solid var(--ink);
   box-shadow: 10px 10px 0 var(--shadow);
   padding: 26px 22px;
@@ -302,20 +331,20 @@ body{
   width: 100%;
 }
 
-.panel-title{
+.panel-title {
   font-family: "Press Start 2P", monospace;
   font-size: 14px;
   line-height: 1.6;
   margin: 0 0 12px;
 }
 
-.panel-text{
+.panel-text {
   font-size: 22px;
   line-height: 1.35;
   margin: 0 0 18px;
 }
 
-.emph{
+.emph {
   font-family: "Press Start 2P", monospace;
   font-size: 14px;
 }
@@ -323,14 +352,14 @@ body{
 /* =========================
    BUTTONS
    ========================= */
-.button-row{
+.button-row {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
   align-items: center;
 }
 
-.btn{
+.btn {
   font-family: "Press Start 2P", monospace;
   font-size: 12px;
   padding: 12px 14px;
@@ -344,51 +373,68 @@ body{
 }
 
 /* ENTER button starts hidden, then JS reveals it */
-.btn-hidden{
+.btn-hidden {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(10px); /* tiny “pop-in” feel */
+  transform: translateY(10px);
+  /* tiny “pop-in” feel */
   transition: opacity 200ms ease, transform 200ms ease;
 }
 
 /* When revealed */
-.btn-visible{
+.btn-visible {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
-#enterBtn { position: relative; z-index: 999;}
 
-#enterBtn{
-  margin-top: 92px;   /* push it down */
+#enterBtn {
+  position: relative;
+  z-index: 999;
+}
+
+#enterBtn {
+  margin-top: 92px;
+  /* push it down */
 }
 
 
-.btn:hover{ transform: translateY(-2px); }
-.btn:active{ transform: translateY(0); }
+.btn:hover {
+  transform: translateY(-2px);
+}
 
-.btn-primary{ background: #215884; }
-.btn-secondary{ background: rgba(43, 87, 92, 0.25); }
+.btn:active {
+  transform: translateY(0);
+}
 
-#procrastinateBtn{
-  position: relative; /* JS moves it */
+.btn-primary {
+  background: #215884;
+}
+
+.btn-secondary {
+  background: rgba(43, 87, 92, 0.25);
+}
+
+#procrastinateBtn {
+  position: relative;
+  /* JS moves it */
 }
 
 /* =========================
    INPUT
    ========================= */
-.input{
+.input {
   width: 100%;
   padding: 14px 14px;
   border: 2px solid var(--ink);
-  background: rgba(0,0,0,0.12);
+  background: rgba(0, 0, 0, 0.12);
   color: var(--ink);
   font-size: 20px;
   outline: none;
   margin: 6px 0 14px;
 }
 
-.input-pixel{
+.input-pixel {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-size: 22px;
 }
@@ -396,7 +442,7 @@ body{
 /* =========================
    VIDEO + REFLECTION
    ========================= */
-#video{
+#video {
   background-image: url("Media/Website copy 1.png");
   background-size: cover;
   background-position: center;
@@ -404,38 +450,38 @@ body{
 }
 
 
-   .section-video{
+.section-video {
   flex-direction: column;
   gap: 26px;
 }
 
-.video-wrap{
+.video-wrap {
   width: min(980px, 96vw);
   text-align: left;
 }
 
-.section-heading{
+.section-heading {
   font-family: "Press Start 2P", monospace;
   font-size: 14px;
   margin: 0 0 14px;
 }
 
-.video-frame{
+.video-frame {
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 3px solid var(--ink);
   box-shadow: 10px 10px 0 var(--shadow);
   overflow: hidden;
-  background: rgba(0,0,0,0.18);
+  background: rgba(0, 0, 0, 0.18);
 }
 
-.video-frame iframe{
+.video-frame iframe {
   width: 100%;
   height: 100%;
   border: 0;
 }
 
-.scroll-cue{
+.scroll-cue {
   margin: 18px auto 0;
   width: 44px;
   height: 44px;
@@ -446,39 +492,49 @@ body{
 
   font-family: "Press Start 2P", monospace;
   font-size: 18px;
-  color: #faf5f5;              
+  color: #faf5f5;
   border-color: #fafafa;
 
-  background: rgba(0,0,0,0.25);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
 
   animation: cueBounce 1.4s infinite;
 }
 
-@keyframes cueBounce{
-  0%, 100% { transform: translateY(0); opacity: 0.85; }
-  50% { transform: translateY(6px); opacity: 1; }
+@keyframes cueBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
 }
 
-.reflection-wrap{
+.reflection-wrap {
   width: min(980px, 96vw);
   padding-bottom: 20px;
 }
 
-.realization{
+.realization {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 700ms ease, transform 700ms ease;
-  font-size: 30px;              
+  font-size: 30px;
   line-height: 1.4;
   margin-top: 18px;
 }
-.realization .emph{
-  font-size: 30px; 
+
+.realization .emph {
+  font-size: 30px;
 }
 
 
-.realization.show{
+.realization.show {
   opacity: 1;
   transform: translateY(0);
 }
@@ -488,17 +544,17 @@ body{
    ========================= */
 
 /* ===== Slideshow Gallery (theme matched) ===== */
-.gallery-slideshow-wrap{
+.gallery-slideshow-wrap {
   width: min(1500px, 96vw);
   text-align: center;
 }
 
-.gallery-heading{
+.gallery-heading {
   font-size: 24px;
   margin-bottom: 18px;
 }
 
-#gallery{
+#gallery {
   background-image: url("Media/Website copy 1.png");
   background-size: cover;
   background-position: center;
@@ -506,35 +562,38 @@ body{
 }
 
 #video::before,
-#gallery::before{
+#gallery::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(2, 1, 32, 0.665); /* tint overlay */
+  background: rgba(2, 1, 32, 0.665);
+  /* tint overlay */
   z-index: 0;
 }
-#video > *,
-#gallery > *{
+
+#video>*,
+#gallery>* {
   position: relative;
   z-index: 1;
 }
 
-.slideshow-container{
+.slideshow-container {
   position: relative;
   margin: 0 auto;
-  width: min(860px, 92vw);        /* keeps the gallery from being full-page */
+  width: min(860px, 92vw);
+  /* keeps the gallery from being full-page */
   border: 3px solid var(--ink);
   box-shadow: 10px 10px 0 var(--shadow);
-  background: rgba(0,0,0,0.18);
+  background: rgba(0, 0, 0, 0.18);
   overflow: hidden;
 }
 
-.mySlides{
+.mySlides {
   display: none;
   position: relative;
 }
 
-.mySlides img{
+.mySlides img {
   width: 100%;
   aspect-ratio: 16 / 9;
   height: auto;
@@ -543,19 +602,20 @@ body{
 }
 
 /* Number text */
-.numbertext{
+.numbertext {
   position: absolute;
   top: 10px;
   left: 10px;
   font-family: "Press Start 2P", monospace;
   font-size: 12px;
   padding: 8px 10px;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   border: 2px solid var(--ink);
 }
 
 /* Next/Prev buttons */
-.prev, .next{
+.prev,
+.next {
   cursor: pointer;
   position: absolute;
   top: 50%;
@@ -566,84 +626,101 @@ body{
   font-weight: 900;
   line-height: 1;
   color: #ffffff;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   border: 2px solid #ffffff;
   user-select: none;
-  z-index: 10;          /* stays above slides/images */
-  opacity: 1;           /* ensures visible */
+  z-index: 10;
+  /* stays above slides/images */
+  opacity: 1;
+  /* ensures visible */
 }
 
 .prev:hover,
 .next:hover,
-.scroll-cue:hover{
-  background: rgba(255,255,255,0.15);
+.scroll-cue:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
-.prev{ left: 10px; }
-.next{ right: 10px; }
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
 
 
 /* Caption */
-.caption-container{
-  background: rgba(0,0,0,0.65);
+.caption-container {
+  background: rgba(0, 0, 0, 0.65);
   border-top: 2px solid var(--ink);
   padding: 10px 14px;
 }
 
-#caption{
+#caption {
   margin: 0;
   font-size: 18px;
 }
 
 /* Thumbnails row */
-.thumb-row{
+.thumb-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   padding: 10px;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0, 0, 0, 0.25);
 }
 
-.thumb-row img{
+.thumb-row img {
   height: 80px;
   object-fit: cover;
   width: 100%;
-  border: 2px solid rgba(244,242,243,0.35);
+  border: 2px solid rgba(244, 242, 243, 0.35);
   opacity: 0.6;
 }
 
-.thumb-row img:hover{
+.thumb-row img:hover {
   opacity: 1;
 }
 
-.thumb-row img.active{
+.thumb-row img.active {
   opacity: 1;
   border-color: var(--ink);
 }
 
 /* Optional fade animation */
-.fade{
+.fade {
   animation: fadeIn 250ms ease;
 }
 
-@keyframes fadeIn{
-  from { opacity: 0.4; }
-  to { opacity: 1; }
+@keyframes fadeIn {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-@media (max-width: 700px){
-  .mySlides img{ height: 340px; }
-  .thumb-row img{ height: 64px; }
+@media (max-width: 700px) {
+  .mySlides img {
+    height: 340px;
+  }
+
+  .thumb-row img {
+    height: 64px;
+  }
 }
 
 /* =========================
    ABOUT
    ========================= */
-.section-about{
+.section-about {
   align-items: flex-start;
 }
 
-.about-layout{
+.about-layout {
   width: min(1500px, 98vw);
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -651,29 +728,29 @@ body{
   align-items: center;
 }
 
-.about-text{
+.about-text {
   padding: 7px 4px;
 }
 
-.about-title{
+.about-title {
   font-family: "Press Start 2P", monospace;
   font-size: 26px;
   margin: 0 0 18px;
   align-items: center;
 }
 
-.about-description{
+.about-description {
   font-size: 20px;
   line-height: 1.5;
   max-width: 600px;
   text-align: justify;
 }
 
-.about-photo{
+.about-photo {
   border: 3px solid var(--ink);
   box-shadow: 10px 10px 0 var(--shadow);
   overflow: hidden;
-  background: rgba(0,0,0,0.12);
+  background: rgba(0, 0, 0, 0.12);
 
   width: min(360px, 80vw);
   max-width: 360px;
@@ -685,22 +762,18 @@ body{
 }
 
 
-.about-photo img{
+.about-photo img {
   width: 100%;
   max-height: 480px;
   object-fit: cover;
   display: block;
 }
 
-@media (max-width: 860px){
-  .about-layout{ grid-template-columns: 1fr; }
-}
-
 /* =========================
    BACK TO TOP BUTTON
    ========================= */
 
-.back-to-top{
+.back-to-top {
   position: absolute;
   right: 32px;
   bottom: 32px;
@@ -708,8 +781,10 @@ body{
   font-family: "Press Start 2P", monospace;
   font-size: 12px;
 
-  background: #f4f2f3;   /* off-white */
-  color: #8b0015;        /* red */
+  background: #f4f2f3;
+  /* off-white */
+  color: #8b0015;
+  /* red */
 
   border: 2px solid #8b0015;
   padding: 10px 14px;
@@ -720,22 +795,24 @@ body{
   transition: transform 150ms ease, opacity 150ms ease, background 150ms ease;
 }
 
-@keyframes pulse{
-  0%{
+@keyframes pulse {
+  0% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(139, 0, 21, 0.4);
   }
-  50%{
+
+  50% {
     transform: scale(1.05);
     box-shadow: 0 0 12px 3px rgba(139, 0, 21, 0.6);
   }
-  100%{
+
+  100% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(139, 0, 21, 0.4);
   }
 }
 
-.back-to-top:hover{
+.back-to-top:hover {
   opacity: 1;
   transform: translateY(-2px);
   background: #ffffff;
@@ -747,143 +824,210 @@ body{
    ========================================= */
 
 /* Make text scale smoothly instead of fixed sizes */
-.nav-link{
+.nav-link {
   font-size: clamp(12px, 1.6vw, 18px);
 }
 
-.q-title{ font-size: clamp(22px, 5.2vw, 37px); }
-.q-sub{ font-size: clamp(18px, 4.8vw, 35px); }
+.q-title {
+  font-size: clamp(22px, 5.2vw, 37px);
+}
 
-.r-title{ font-size: clamp(20px, 4.8vw, 35px); }
-.r-sub{ font-size: clamp(18px, 4.2vw, 30px); }
+.q-sub {
+  font-size: clamp(18px, 4.8vw, 35px);
+}
 
-.panel-text{ font-size: clamp(16px, 2.2vw, 22px); }
-.gallery-heading{ font-size: clamp(16px, 2.4vw, 24px); }
-.about-title{ font-size: clamp(18px, 2.6vw, 26px); }
-.about-description{ font-size: clamp(16px, 2.2vw, 20px); }
+.r-title {
+  font-size: clamp(20px, 4.8vw, 35px);
+}
+
+.r-sub {
+  font-size: clamp(18px, 4.2vw, 30px);
+}
+
+.panel-text {
+  font-size: clamp(16px, 2.2vw, 22px);
+}
+
+.gallery-heading {
+  font-size: clamp(16px, 2.4vw, 24px);
+}
+
+.about-title {
+  font-size: clamp(18px, 2.6vw, 26px);
+}
+
+.about-description {
+  font-size: clamp(16px, 2.2vw, 20px);
+}
+
 .realization,
-.realization .emph{ font-size: clamp(16px, 4vw, 30px); }
+.realization .emph {
+  font-size: clamp(16px, 4vw, 30px);
+}
 
 /* Top bar wraps nicely on small widths */
-.topbar{
+.topbar {
   flex-wrap: wrap;
   gap: 10px;
 }
 
 /* On tablets */
-@media (max-width: 1024px){
-  .section{
-    padding: 110px 16px 56px; /* a bit more top padding if topbar wraps */
+@media (max-width: 1024px) {
+  .section {
+    padding: 110px 16px 56px;
+    /* a bit more top padding if topbar wraps */
   }
 
-  .deadline-timer{
+  .deadline-timer {
     font-size: 14px;
     padding: 8px 10px;
     top: 12px;
     right: 12px;
   }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .about-photo {
+    max-width: 300px;
+  }
 }
 
 /* On phones */
-@media (max-width: 700px){
+@media (max-width: 700px) {
+
   /* Background-attachment: fixed often looks buggy on phones */
-  html, body{
+  html,
+  body {
     background-attachment: scroll;
   }
 
-  .topbar{
+  .topbar {
     padding: 10px 12px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .nav{
-    gap: 10px;
+  .nav {
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
   }
-  
-  @media (max-width: 700px){
-  #enterBtn{ margin-top: 24px; }
-  .home-center{ top: 62%; }
-}
+
+  .deadline-timer {
+    position: static;
+    margin-top: 10px;
+    margin-left: auto;
+    /* Push to right if in flex column, or just center it */
+    align-self: center;
+  }
+
+  .nav-link {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+
+  @media (max-width: 700px) {
+    #enterBtn {
+      margin-top: 24px;
+    }
+
+    .home-center {
+      top: 62%;
+    }
+  }
 
   /* If timer appears, don't let it overlap everything */
-  .deadline-timer{
+  .deadline-timer {
     position: static;
     box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.55);
   }
 
-  .section{
-    padding: 130px 14px 52px; /* more space for wrapped nav */
+  .section {
+    padding: 130px 14px 52px;
+    /* more space for wrapped nav */
   }
 
   /* Tighten some UI sizing */
-  .btn{
+  .btn {
     padding: 11px 12px;
     font-size: 11px;
   }
 
-  .scroll-cue{
+  .scroll-cue {
     width: 40px;
     height: 40px;
   }
 
-  .numbertext{
+  .numbertext {
     font-size: 10px;
     padding: 6px 8px;
   }
 
-  #caption{
+  #caption {
     font-size: 14px;
   }
 
-  .thumb-row{
-    grid-template-columns: repeat(2, 1fr); /* 4 across is too tight on phones */
+  .thumb-row {
+    grid-template-columns: repeat(2, 1fr);
+    /* 4 across is too tight on phones */
   }
 }
 
 /* Very small phones */
-@media (max-width: 420px){
-  .section{
+@media (max-width: 420px) {
+  .section {
     padding: 140px 12px 48px;
   }
 
-  .thumb-row img{
+  .thumb-row img {
     height: 56px;
   }
 }
 
 /* --- iOS/phone background fix (prevents "white page" issues) --- */
-@media (max-width: 700px){
-  html, body{
-    background-attachment: scroll; /* iOS Safari hates fixed backgrounds */
+@media (max-width: 700px) {
+
+  html,
+  body {
+    background-attachment: scroll;
+    /* iOS Safari hates fixed backgrounds */
     background-position: center;
     background-size: cover;
   }
 
   /* Ensure every section stays transparent so the background shows through */
-  .section{
+  .section {
     background: transparent;
   }
 }
+
 /* --- ABOUT responsive layout: photo first, centered, text after --- */
-@media (max-width: 860px){
-  .about-layout{
-    grid-template-columns: 1fr;   /* already exists, but we improve the layout */
+@media (max-width: 860px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    /* already exists, but we improve the layout */
     justify-items: center;
     gap: 18px;
   }
 
-  .about-photo{
+  .about-photo {
     width: min(360px, 86vw);
     margin: 18px auto 0;
     justify-self: center;
   }
 
-  .about-text{
+  .about-text {
     width: min(650px, 92vw);
     text-align: center;
   }
 
-  .about-description{
+  .about-description {
     max-width: none;
-    text-align: center; /* you asked for center aligned text */
+    text-align: center;
+    /* you asked for center aligned text */
   }
 }
