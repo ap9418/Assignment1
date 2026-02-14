@@ -20,11 +20,9 @@ body {
   margin: 0;
   padding: 0;
 
-  background-image: url("Media/Website copy.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  /* Background moved to body::before for better mobile support */
+  background-color: #2b0c0d;
+  /* Fallback dark red */
 
   color: var(--ink);
 }
@@ -295,10 +293,18 @@ body {
   left: 50%;
   top: 57%;
   transform: translate(-50%, -50%);
-  z-index: 6;
+  z-index: 50;
+  /* Ensure on top of popups */
   text-align: center;
   max-width: 360px;
   padding: 12px;
+}
+
+@media (max-width: 700px) {
+  .home-center {
+    top: 75%;
+    /* Move button lower on mobile to sit below "Pro-Crast-Ination" */
+  }
 }
 
 .title {
@@ -1002,6 +1008,54 @@ body {
   /* Ensure every section stays transparent so the background shows through */
   .section {
     background: transparent;
+  }
+}
+
+/* Mobile Background Fix: Use pseudo-element to ensure it stays fixed */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  background-image: url("Media/Website copy.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* This ensures the red background is always there behind everything */
+}
+
+/* Ensure sections that need Blue background cover the Red one */
+#video,
+#gallery {
+  background-image: url("Media/Website copy 1.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  /* Reset to scroll on mobile if needed */
+  position: relative;
+  z-index: 1;
+}
+
+/* About Section Mobile Optimization */
+@media (max-width: 860px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .about-photo {
+    margin: 0 auto;
+    max-width: 250px;
+    /* Smaller image on mobile */
+    width: 80%;
+  }
+
+  .about-description {
+    text-align: center;
+    /* Center text for better mobile reading */
+    font-size: 16px;
+    padding: 0 10px;
   }
 }
 
