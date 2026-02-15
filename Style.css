@@ -300,10 +300,10 @@ body {
   padding: 12px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .home-center {
-    top: 75%;
-    /* Move button lower on mobile to sit below "Pro-Crast-Ination" */
+    top: 63%;
+    /* Move button below the "CRAST" popup (centered at 50%) */
   }
 }
 
