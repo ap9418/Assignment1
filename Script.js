@@ -151,7 +151,7 @@ const popupPlan = [
   { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340, mobile: { x: 16, y: 72, w: 210 } },
 
   { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572, mobile: { x: 50, y: 50, z: -1, w: 300 } },
-  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520, mobile: { x: 67, y: 65, z: 5, w: 250 } }
+  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520, mobile: { x: 67, y: 65, z: 10, w: 250 } }
 ];
 
 function playPopups() {
