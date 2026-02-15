@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Assignment 1</title>
 
   <!-- Google Fonts: Press Start 2P + Pixelify Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Press+Start+2P&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="Style.css" />
 </head>
+
 <body>
   <!-- Fixed top bar: nav + timer -->
   <header class="topbar">
@@ -41,7 +44,7 @@
       <div class="home-center">
         <button id="enterBtn" class="btn btn-primary btn-hidden">ENTER</button>
       </div>
-        
+
     </section>
 
     <!-- ===================== -->
@@ -65,13 +68,9 @@
       <div class="video-wrap">
 
         <!-- Replace FILE_ID with your Google Drive file id -->
-        <div class="video-frame"> 
-          <iframe 
-          src="https://drive.google.com/file/d/1soE3d2UCugOtNaM5B5By978lhQDDnJhy/preview" 
-          width="1280" height="720"
-          allow="autoplay"
-          allowfullscreen
-          ></iframe>
+        <div class="video-frame">
+          <iframe src="https://drive.google.com/file/d/1soE3d2UCugOtNaM5B5By978lhQDDnJhy/preview" width="1280"
+            height="720" allow="autoplay" allowfullscreen></iframe>
         </div>
         <div class="scroll-cue" aria-hidden="true">
           ↓
@@ -79,32 +78,27 @@
       </div>
     </section>
 
-      <!-- ===================== -->
-      <!-- INTERACTIVE (reflection) -->
-      <!-- ===================== -->
-      <section id="reflection" class="section section-reflection">
-        <div class="reflection-center">
-          <h2 id="rTitle" class="r-title"></h2>
-          <p id="rSub" class="r-sub"></p>
+    <!-- ===================== -->
+    <!-- INTERACTIVE (reflection) -->
+    <!-- ===================== -->
+    <section id="reflection" class="section section-reflection">
+      <div class="reflection-center">
+        <h2 id="rTitle" class="r-title"></h2>
+        <p id="rSub" class="r-sub"></p>
 
-          <div id="rForm" class="reflection-form hidden">
-            <label class="sr-only" for="userResponse">Type your response here</label>
-            <input
-              id="userResponse"
-              class="input input-pixel"
-              type="text"
-              placeholder="Type your response here"
-              maxlength="200"
-            />
-            <button id="submitResponse" class="btn btn-primary">SUBMIT</button>
+        <div id="rForm" class="reflection-form hidden">
+          <label class="sr-only" for="userResponse">Type your response here</label>
+          <input id="userResponse" class="input input-pixel" type="text" placeholder="Type your response here"
+            maxlength="200" />
+          <button id="submitResponse" class="btn btn-primary">SUBMIT</button>
 
-            <p id="beforePrompt" class="realization hidden">
-              <span class="emph">What if you start before?</span>
-              <button class="scroll-cue scroll-link" data-target="about" aria-label="Scroll to About">↓</button>
-            </p>
-          </div>
+          <p id="beforePrompt" class="realization hidden">
+            <span class="emph">What if you start before?</span>
+            <button class="scroll-cue scroll-link" data-target="about" aria-label="Scroll to About">↓</button>
+          </p>
         </div>
-      </section>
+      </div>
+    </section>
 
     <!-- ===================== -->
     <!-- GALLERY (revealed after SUBMIT) -->
@@ -115,7 +109,7 @@
 
         <div class="slideshow-container">
 
-        <!-- Slide 1 -->
+          <!-- Slide 1 -->
           <div class="mySlides fade">
             <div class="numbertext">1 / 8</div>
             <img src="Media/Study 1.png" alt="The Palms, Outside C2" />
@@ -142,40 +136,40 @@
           <!-- Slide 5 -->
           <div class="mySlides fade">
             <div class="numbertext">5 / 8</div>
-            <img src= "Media/Study 5.png" alt="NYUAD Library, C2" />
+            <img src="Media/Study 5.png" alt="NYUAD Library, C2" />
           </div>
 
           <!-- Slide 6 -->
           <div class="mySlides fade">
             <div class="numbertext">6 / 8</div>
-            <img src= "Media/Study 6.png" alt="Baraha Study Rooms, C2" />
+            <img src="Media/Study 6.png" alt="Baraha Study Rooms, C2" />
           </div>
 
           <!-- Slide 7 -->
           <div class="mySlides fade">
             <div class="numbertext">7 / 8</div>
-            <img src= "Media/Study 7.png" alt="Marketplace, C2" />
+            <img src="Media/Study 7.png" alt="Marketplace, C2" />
           </div>
 
           <!-- Slide 8 -->
           <div class="mySlides fade">
             <div class="numbertext">8 / 8</div>
-            <img src= "Media/Study 8.png" alt="Dorm Floor Lounges, Highline" />
+            <img src="Media/Study 8.png" alt="Dorm Floor Lounges, Highline" />
           </div>
 
           <a class="prev" id="prevSlide">&lt;</a>
           <a class="next" id="nextSlide">&gt;</a>
 
 
-      <div class="caption-container">
-        <p id="caption"></p>
-      </div>
-    </div>
+          <div class="caption-container">
+            <p id="caption"></p>
+          </div>
+        </div>
 
-    <!-- Arrow to About -->
-    <button class="scroll-cue scroll-link" data-target="about" aria-label="Scroll to About">↓</button>
-  </div>
-</section>
+        <!-- Arrow to About -->
+        <button class="scroll-cue scroll-link" data-target="about" aria-label="Scroll to About">↓</button>
+      </div>
+    </section>
 
     <!-- ===================== -->
     <!-- ABOUT (revealed after SUBMIT) -->
@@ -189,12 +183,18 @@
         <div class="about-text">
           <h2 class="about-title">MY STORY</h2>
           <p class="about-description">
-            Hi, I’m Avani Patri, a freshman at NYU Abu Dhabi, intending to double major in BOS and IM. I’m passionate about art, dance, reading and most importantly— movies! I’m also very good at convincing myself that 'one more episode' or 'one more chapter' won’t hurt… until it does. 
+            Hi, I’m Avani Patri, a freshman at NYU Abu Dhabi, intending to double major in BOS and IM. I’m passionate
+            about art, dance, reading and most importantly— movies! I’m also very good at convincing myself that 'one
+            more episode' or 'one more chapter' won’t hurt… until it does.
           </p>
           <p class="about-description">
-            Like most students, I’ve had my fair share of procrastination. This website came out of that very habit. I wanted to explore procrastination not as a flaw, but as something almost everyone experiences and often struggles with silently.
+            Like most students, I’ve had my fair share of procrastination. This website came out of that very habit. I
+            wanted to explore procrastination not as a flaw, but as something almost everyone experiences and often
+            struggles with silently.
 
-            Through this project, I hope people recognize their own patterns, pause for a moment, and maybe rethink how they use their time. Procrastination is normal, but so is learning how to work around it. And if this page nudges you to start that assignment a little earlier than planned, then it’s already done its job.
+            Through this project, I hope people recognize their own patterns, pause for a moment, and maybe rethink how
+            they use their time. Procrastination is normal, but so is learning how to work around it. And if this page
+            nudges you to start that assignment a little earlier than planned, then it’s already done its job.
           </p>
         </div>
       </div>
@@ -207,4 +207,5 @@
 
   <script src="Script.js"></script>
 </body>
+
 </html>
