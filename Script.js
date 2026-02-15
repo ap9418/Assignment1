@@ -142,16 +142,16 @@ const popupPlan = [
   { src: "Media/Website (4).png", x: 80, y: 37, z: 1, w: 389.3, mobile: { x: 79, y: 21, w: 180 } },
   { src: "Media/Website (4).png", x: 78, y: 35, z: 1, w: 389.3, mobile: { x: 76, y: 19, w: 180 } },
 
-  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420, mobile: { x: 20, y: 25, w: 260 } },
+  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420, mobile: { x: 34, y: 30, w: 260 } },
 
   // PRO - CRAST - INATION Cascade
-  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340, mobile: { x: 7, y: 75, w: 210 } },
-  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340, mobile: { x: 9, y: 80, w: 210 } },
-  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340, mobile: { x: 11, y: 85, w: 210 } },
-  { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340, mobile: { x: 13, y: 90, w: 210 } },
+  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340, mobile: { x: 10, y: 87, w: 210 } },
+  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340, mobile: { x: 12, y: 82, w: 210 } },
+  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340, mobile: { x: 14, y: 77, w: 210 } },
+  { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340, mobile: { x: 16, y: 72, w: 210 } },
 
   { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572, mobile: { x: 50, y: 50, z: -1, w: 300 } },
-  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520, mobile: { x: 67, y: 80, w: 250 } }
+  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520, mobile: { x: 67, y: 65, w: 250 } }
 ];
 
 function playPopups() {
