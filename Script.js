@@ -136,22 +136,22 @@ const popupPlan = [
   // 4. INATION (Right Lower)
   // 5. UPDATE (Left Bottom)
 
-  { src: "Media/Website (7).png", x: 37, y: 36, z: 0, w: 350.3, mobile: { x: 80, y: 15, w: 280 } }, // Terminal (Top Right)
-  { src: "Media/Website (4).png", x: 84, y: 41, z: 1, w: 389.3, mobile: { x: 85, y: 25, w: 180 } }, // Right decorations
+  { src: "Media/Website (7).png", x: 37, y: 36, z: 0, w: 350.3, mobile: { x: 20, y: 15, w: 280 } },
+  { src: "Media/Website (4).png", x: 84, y: 41, z: 1, w: 389.3, mobile: { x: 85, y: 25, w: 180 } },
   { src: "Media/Website (4).png", x: 82, y: 39, z: 1, w: 389.3, mobile: { x: 82, y: 23, w: 180 } },
   { src: "Media/Website (4).png", x: 80, y: 37, z: 1, w: 389.3, mobile: { x: 79, y: 21, w: 180 } },
   { src: "Media/Website (4).png", x: 78, y: 35, z: 1, w: 389.3, mobile: { x: 76, y: 19, w: 180 } },
 
-  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420, mobile: { x: 20, y: 80, w: 220 } }, // UPDATE (Bottom Left)
+  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420, mobile: { x: 20, y: 25, w: 200 } },
 
   // PRO - CRAST - INATION Cascade
-  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340, mobile: { x: 20, y: 35, w: 260 } },  // PRO (Left Middle)
-  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340, mobile: { x: 50, y: 50, w: 260 } },  // CRAST (Center)
-  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340, mobile: { x: 80, y: 65, w: 260 } },  // INATION (Right Lower)
-  { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340, mobile: { x: 10, y: 55, w: 200 } },  // Extra stack item (Side)
+  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340, mobile: { x: 20, y: 75, w: 260 } },
+  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340, mobile: { x: 15, y: 80, w: 260 } },
+  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340, mobile: { x: 10, y: 85, w: 260 } },
+  { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340, mobile: { x: 5, y: 90, w: 200 } },
 
-  { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572, mobile: { x: 50, y: 50, z: -1, w: 300 } }, // Background-ish center
-  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520, mobile: { x: 80, y: 85, w: 250 } }  // Bottom right
+  { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572, mobile: { x: 50, y: 50, z: -1, w: 300 } },
+  { src: "Media/Website (2).png", x: 73, y: 72, z: 2, w: 520, mobile: { x: 67, y: 65, w: 250 } }
 ];
 
 function playPopups() {
