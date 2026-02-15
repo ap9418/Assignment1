@@ -129,28 +129,25 @@ function scrollToSection(sectionEl) {
    ========================================================= */
 const popupPlan = [
   // Mobile layout: Stack vertically to form "Pro-Crast-Ination" + others
-  // Inferred order: 
-  // 1. Pro (Top)
-  // 2. Crast (Middle)
-  // 3. Ination (Bottom)
-  // Others scattered around contextually
+  // Updated layout based on user request:
+  // 1. Terminal (Top Right)
+  // 2. PRO (Left Middle)
+  // 3. CRAST (Center)
+  // 4. INATION (Right Lower)
+  // 5. UPDATE (Left Bottom)
 
-  // NOTE: Adjusting indices based on user screenshot/request. 
-  // Assuming the LAST few are the main text ones based on "Website.png" (clean names).
-
-  { src: "Media/Website (7).png", x: 37, y: 36, z: 0, w: 350.3, mobile: { x: 50, y: 15, w: 280 } }, // Top decoration
+  { src: "Media/Website (7).png", x: 37, y: 36, z: 0, w: 350.3, mobile: { x: 80, y: 15, w: 280 } }, // Terminal (Top Right)
   { src: "Media/Website (4).png", x: 84, y: 41, z: 1, w: 389.3, mobile: { x: 85, y: 25, w: 180 } }, // Right decorations
   { src: "Media/Website (4).png", x: 82, y: 39, z: 1, w: 389.3, mobile: { x: 82, y: 23, w: 180 } },
   { src: "Media/Website (4).png", x: 80, y: 37, z: 1, w: 389.3, mobile: { x: 79, y: 21, w: 180 } },
   { src: "Media/Website (4).png", x: 78, y: 35, z: 1, w: 389.3, mobile: { x: 76, y: 19, w: 180 } },
 
-  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420, mobile: { x: 15, y: 80, w: 200 } }, // Moved to bottom-left
+  { src: "Media/Website (3).png", x: 20, y: 23, z: 2, w: 420, mobile: { x: 20, y: 80, w: 220 } }, // UPDATE (Bottom Left)
 
   // PRO - CRAST - INATION Cascade
-  // Spaced out vertically to read Top -> Bottom
-  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340, mobile: { x: 25, y: 35, w: 250 } },  // PRO (Top-ish)
-  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340, mobile: { x: 50, y: 48, w: 260 } },  // CRAST (Middle)
-  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340, mobile: { x: 75, y: 60, w: 270 } },  // INATION (Lower)
+  { src: "Media/Website.png", x: 19, y: 75, z: 3, w: 340, mobile: { x: 20, y: 35, w: 260 } },  // PRO (Left Middle)
+  { src: "Media/Website.png", x: 20, y: 72, z: 3, w: 340, mobile: { x: 50, y: 50, w: 260 } },  // CRAST (Center)
+  { src: "Media/Website.png", x: 21, y: 69, z: 3, w: 340, mobile: { x: 80, y: 65, w: 260 } },  // INATION (Right Lower)
   { src: "Media/Website.png", x: 22, y: 66, z: 3, w: 340, mobile: { x: 10, y: 55, w: 200 } },  // Extra stack item (Side)
 
   { src: "Media/Website (1).png", x: 50, y: 50, z: 4, w: 572, mobile: { x: 50, y: 50, z: -1, w: 300 } }, // Background-ish center
@@ -174,10 +171,11 @@ function playPopups() {
 
     img.style.zIndex = item.z;
 
-    // --- RESPONSIVE POPUPS (ONLY on small screens) ---
+    // --- RESPONSIVE POPUPS (Mobile/Vertical) ---
     const vw = window.innerWidth || 390;
+    const isVertical = vw <= 900; // Expanded range to include tablets/vertical screens
 
-    if (vw <= 700) {
+    if (isVertical) {
       // Mobile Layout
       // Check if we have specific mobile coords, else fallback to auto-scaling
       if (item.mobile) {
