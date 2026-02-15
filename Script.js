@@ -366,6 +366,32 @@ yesBtn.addEventListener("click", () => {
 });
 
 submitResponse.addEventListener("click", () => {
+  // Capture response
+  const responseText = userResponse.value;
+
+  // --- GOOGLE FORM SUBMISSION ---
+  // URL from user: https://docs.google.com/forms/d/e/1FAIpQLSd7g9VMx0kpN7xX7DGuRp-rlvz_vQJ8OJusVXAJajU0So7UwQ/viewform
+  // Submission URL: .../formResponse
+  // Entry ID found via source: entry.1653203060
+  const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd7g9VMx0kpN7xX7DGuRp-rlvz_vQJ8OJusVXAJajU0So7UwQ/formResponse";
+  const GOOGLE_ENTRY_ID = "entry.1653203060";
+
+  if (responseText.trim() !== "") {
+    const formData = new URLSearchParams();
+    formData.append(GOOGLE_ENTRY_ID, responseText);
+
+    fetch(GOOGLE_FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: formData
+    }).catch(err => {
+      console.error("Form submission failed (network error):", err);
+    });
+  }
+
   // Reveal the realization line AFTER submit
   beforePrompt.classList.remove("hidden");
   requestAnimationFrame(() => {
