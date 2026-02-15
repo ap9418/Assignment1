@@ -302,8 +302,8 @@ body {
 
 @media (max-width: 900px) {
   .home-center {
-    top: 75%;
-    /* Move button below the central area to avoid overlap with bottom popups */
+    top: 68%;
+    /* Move button slightly higher to overlap with the popup stack (CRAST) */
   }
 }
 
@@ -938,11 +938,11 @@ body {
 
   @media (max-width: 700px) {
     #enterBtn {
-      margin-top: 24px;
+      margin-top: 14px;
     }
 
     .home-center {
-      top: 62%;
+      top: 57%;
     }
   }
 
