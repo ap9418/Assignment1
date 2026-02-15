@@ -369,27 +369,46 @@ submitResponse.addEventListener("click", () => {
   // Capture response
   const responseText = userResponse.value;
 
-  // --- GOOGLE FORM SUBMISSION ---
-  // URL from user: https://docs.google.com/forms/d/e/1FAIpQLSd7g9VMx0kpN7xX7DGuRp-rlvz_vQJ8OJusVXAJajU0So7UwQ/viewform
-  // Submission URL: .../formResponse
-  // Entry ID found via source: entry.1653203060
+  // --- GOOGLE FORM SUBMISSION (Hidden Iframe Method) ---
+  // Using a hidden form + iframe is more reliable than fetch for Google Forms
+  // because it sends cookies (needed if form requires login) and handles CORS better.
+
   const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd7g9VMx0kpN7xX7DGuRp-rlvz_vQJ8OJusVXAJajU0So7UwQ/formResponse";
   const GOOGLE_ENTRY_ID = "entry.1653203060";
 
   if (responseText.trim() !== "") {
-    const formData = new URLSearchParams();
-    formData.append(GOOGLE_ENTRY_ID, responseText);
+    // 1. Create a unique iframe name
+    const iframeName = "hidden_iframe_" + Date.now();
 
-    fetch(GOOGLE_FORM_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: formData
-    }).catch(err => {
-      console.error("Form submission failed (network error):", err);
-    });
+    // 2. Create the hidden iframe
+    const iframe = document.createElement("iframe");
+    iframe.name = iframeName;
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+
+    // 3. Create a form targeting the iframe
+    const form = document.createElement("form");
+    form.action = GOOGLE_FORM_URL;
+    form.method = "POST";
+    form.target = iframeName;
+    form.style.display = "none";
+
+    // 4. Add the input field
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = GOOGLE_ENTRY_ID;
+    input.value = responseText;
+    form.appendChild(input);
+
+    // 5. Append form, submit, then clean up
+    document.body.appendChild(form);
+    form.submit();
+
+    // Cleaning up DOM elements after a delay
+    setTimeout(() => {
+      document.body.removeChild(form);
+      document.body.removeChild(iframe);
+    }, 2000);
   }
 
   // Reveal the realization line AFTER submit
