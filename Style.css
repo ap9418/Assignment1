@@ -302,8 +302,8 @@ body {
 
 @media (max-width: 900px) {
   .home-center {
-    top: 63%;
-    /* Move button below the "CRAST" popup (centered at 50%) */
+    top: 75%;
+    /* Move button below the central area to avoid overlap with bottom popups */
   }
 }
 
